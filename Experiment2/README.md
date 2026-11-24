@@ -1,7 +1,7 @@
 # Experiment 2: Basic Text Preprocessing
 
-**Name:** Aantriksh Sood  
-**SAP ID:** 500124259  
+**Name:** Lakshya Upadhyay  
+**SAP ID:** 500119462 
 
 ## Objective
 To implement foundational text preprocessing techniques essential for Natural Language Processing by transforming raw textual data into structured tokens while removing noise.
