@@ -1,13 +1,13 @@
 # Computational Linguistics & Natural Language Processing Laboratory
 
-**Name:** Aantriksh Sood  
-**SAP ID:** 500124259  
-**Specialisation Batch:** AI/ML B1  
-**Subject:** Computational Linguistics & Natural Language Processing  
+**Name:** Lakshya Upadhyay  
+**SAP ID:** 500119462
+**Specialisation Batch:** AI/ML B1
+**Subject:** Computational Linguistics & Natural Language Processing
 **Faculty:** Dr. Sahinur Rahman Laskar
 
 ## Overview
-This repository contains the laboratory experiments conducted for the Computational Linguistics and Natural Language Processing course. The experiments focus on fundamental data analysis and text preprocessing techniques vital for natural language processing tasks. 
+This repository contains the laboratory experiments conducted for the Computational Linguistics and Natural Language Processing course. The experiments focus on fundamental data analysis and text preprocessing techniques vital for natural language processing tasks.
 
 ## Laboratory Experiments
 
