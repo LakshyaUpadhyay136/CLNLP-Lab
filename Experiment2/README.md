@@ -1,46 +1,57 @@
 # Experiment 2: Basic Text Preprocessing
 
 **Name:** Lakshya Upadhyay  
-**SAP ID:** 500119462 
+**SAP ID:** 500119462  
+**Specialisation Batch:** AI/ML B1  
+**Subject:** Computational Linguistics & Natural Language Processing  
 
 ## Objective
-To implement foundational text preprocessing techniques essential for Natural Language Processing by transforming raw textual data into structured tokens while removing noise.
+To implement foundational text preprocessing pipelines essential for Natural Language Processing by transforming raw, unstructured text files into clean, normalized tokens while eliminating textual noise, punctuation, digits, and stop words.
 
 ## Procedure & Implementation
-The experiment operates on raw text files and is divided into three core preprocessing stages, leveraging built-in Python string operations, NLTK, and spaCy libraries.
+The experiment operates entirely on local input text files (`2.1_text_data.txt`, `2.2_tokenization_data.txt`, `2.3_clean_data.txt`) and is organized into three distinct sub-experiments matching `Experiment2.ipynb`:
 
-1.  **Text Cleaning (`2.1_text_data.txt`):**
-    *   Reading the raw text file.
-    *   Calculating the frequency of uppercase characters.
-    *   Converting the entire text corpus to lowercase for uniformity.
-    *   Identifying and stripping all punctuation marks using the `string.punctuation` module.
-    *   Removing numeric digits.
-    *   Normalizing whitespace by splitting and rejoining the text, calculating the total whitespace characters removed.
+### 1. Basic Text Cleaning (`2.1_text_data.txt`)
+* **Uppercase Character Frequency:** Count total uppercase letters (`sum(1 for c in text if c.isupper())`).
+* **Case Normalization:** Convert the complete text corpus to lowercase (`text.lower()`).
+* **Punctuation Stripping:** Identify all punctuation marks and types using Python's `string.punctuation` module, then eliminate them via string comprehension.
+* **Digit Removal:** Detect numeric digits using `str.isdigit()` and filter them out completely.
+* **Whitespace Normalization:** Compress irregular and excess whitespace using `" ".join(text.split())` and calculate the exact count of removed whitespace characters.
 
-2.  **Tokenization (`2.2_tokenization_data.txt`):**
-    *   **NLTK:** Utilizing `nltk.word_tokenize` and `nltk.sent_tokenize` for word and sentence level tokenization.
-    *   **spaCy:** Loading the `en_core_web_sm` model to process the text and extract word and sentence tokens via the document object.
-    *   **Python Native:** Implementing basic tokenization using the `split()` method for words and regular expressions (`re.split`) for sentence boundary detection.
+### 2. Tokenization Across Three Frameworks (`2.2_tokenization_data.txt`)
+Comparative implementation of word-level and sentence-level tokenization across three paradigms:
+* **NLTK:**
+  * Word tokenization via `nltk.word_tokenize(raw_text)` leveraging the `punkt_tab` pre-trained model.
+  * Sentence tokenization via `nltk.sent_tokenize(raw_text)` to split on sentence boundaries.
+* **spaCy:**
+  * Load and process text using the `en_core_web_sm` English pipeline model (`nlp = spacy.load('en_core_web_sm')`).
+  * Extract discrete word tokens using list comprehension over document token objects (`[t.text for t in doc]`).
+  * Extract sentence boundaries using document sentence spans (`[s.text for s in doc.sents]`).
+* **Native Python & Regular Expressions:**
+  * Basic whitespace-based word splitting via `str.split()`.
+  * Sentence boundary segmentation using regex positive lookbehind: `re.split(r'(?<=[.!?]) +', raw_text)`, ensuring sentence-ending punctuation remains attached to the preceding sentence.
 
-3.  **Stop Words Removal (`2.3_clean_data.txt`):**
-    *   Downloading and importing the English stop words list from `nltk.corpus`.
-    *   Tokenizing the lowercase input text.
-    *   Filtering the token list to exclude any words present in the stop words set and ensuring only alphanumeric tokens remain.
-    *   Isolating and displaying the specific stop words that were removed from the corpus.
+### 3. Stop Words Removal (`2.3_clean_data.txt`)
+* **Stop Word Corpus:** Download and load standard English stop words from `nltk.corpus.stopwords` (`set(stopwords.words('english'))`).
+* **Tokenization & Case Uniformity:** Lowercase raw input text and generate tokens via `nltk.word_tokenize()`.
+* **Stop Word Isolation:** Identify and extract the specific unique stop words present in the corpus (`[t for t in tokens if t in stop_words]`).
+* **Cleaned Semantic Tokens:** Filter tokens to exclude all stop words while retaining strictly alphanumeric tokens (`[t for t in tokens if t not in stop_words and t.isalnum()]`).
 
 ## Observations
-| Preprocessing Stage | Method / Library | Action Performed | Result Output |
+| Preprocessing Stage | Method / Framework | Action Performed | Result Output |
 | :--- | :--- | :--- | :--- |
-| **Text Cleaning** | Built-in Python (`string`) | Lowercasing, punctuation/digit removal | Normalized, noise-free text string |
-| **Whitespace Normalization**| Built-in Python (`split`, `join`) | Elimination of redundant spaces | Compressed text corpus |
-| **Tokenization (NLTK)** | `nltk.word_tokenize`, `sent_tokenize`| Rule-based token extraction | Lists of discrete words and sentences |
-| **Tokenization (spaCy)** | `en_core_web_sm` model | Model-based document parsing | Extracted tokens via `.text` attribute |
-| **Tokenization (Native)** | `str.split()`, `re.split()` | Whitespace and regex boundaries | Basic token lists |
-| **Stop Word Removal** | `nltk.corpus.stopwords` | Filtering against standard English list | Alphanumeric tokens with core semantic value |
+| **Text Cleaning** | Built-in Python (`string`, `str`) | Uppercase count, lowercasing, punctuation stripping, digit removal | Normalized lowercased string without digits or punctuation |
+| **Whitespace Normalization** | Built-in Python (`split`, `join`) | Multi-space collapse, stripped redundant spacing | Compressed clean single-spaced text |
+| **Tokenization (NLTK)** | `nltk.word_tokenize`, `sent_tokenize` | Rule-based statistical boundary parsing (`punkt_tab`) | Token list separating words and punctuation symbols |
+| **Tokenization (spaCy)** | `en_core_web_sm` pipeline | Model-based document parsing via `.text` and `.sents` | Context-aware token and sentence span objects |
+| **Tokenization (Native)** | `str.split()`, `re.split(r'(?<=[.!?]) +')` | Whitespace splitting & regex lookbehind | Native lists of words and sentences preserving punctuation |
+| **Stop Word Isolation** | `nltk.corpus.stopwords` | Set-membership check against English stop words | Set of removed grammatical helper words (`the`, `is`, `in`, etc.) |
+| **Stop Word Filtering** | List comprehension & `str.isalnum()` | Removal of stop words and remaining punctuation | Filtered list containing only core semantic content words |
 
 ## Result Interpretation & Learnings
-*   **Pipeline Foundation:** The experiment practically demonstrates the critical initial phases necessary for natural language processing pipelines.
-*   **Effective Normalization:** The text cleaning stage successfully normalizes raw text by eliminating non-informative characters, including punctuation, digits, and excess whitespace.
-*   **Tokenizer Comparison:** The tokenization phase highlights syntactical differences and operational efficiencies between rule-based approaches (NLTK, regex) and model-based architectures (spaCy).
-*   **Dimensionality Reduction:** The stop word removal process effectively reduces the dimensionality of the text data corpus.
-*   **Semantic Isolation:** Post preprocessing, only the semantically significant tokens remain, perfectly formatted for downstream computational linguistics tasks.
+* **Text Normalization Foundation:** Cleaning operations systematically convert noisy unstructured text into a canonical format, removing non-informative symbols while quantifying noise removal.
+* **Tokenization Paradigms Compared:** 
+  * NLTK isolates punctuation into individual tokens effectively using pre-trained boundary rules.
+  * spaCy provides a unified, object-oriented pipeline yielding rich linguistic token attributes.
+  * Regex with lookbehind (`(?<=[.!?]) +`) enables precise custom boundary splits without consuming delimiter tokens.
+* **Vocabulary Reduction:** Removing high-frequency stop words significantly reduces corpus dimensionality while preserving words with core semantic meaning for downstream NLP tasks.
